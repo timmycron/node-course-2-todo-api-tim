@@ -54,6 +54,17 @@ UserSchema.methods.generateAuthToken = function() {
   });
 };
 
+// methods is for instance methods, statics are for static methods
+UserSchema.methods.removeToken = function(token) {
+  var user = this;
+
+  return user.update({
+    $pull: {
+      tokens: { token }
+    }
+  });
+};
+
 UserSchema.statics.findByCredentials = function(email, password) {
   var User = this;
 
